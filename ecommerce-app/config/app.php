@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'foodpanda_url' => env('FOODPANDA_URL','http://127.0.0.1:8001'),
 
     /*
     |--------------------------------------------------------------------------
