@@ -1,0 +1,12 @@
+"# Root gitignore" 
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Env files 
+**/.env
+**/.env.backup
