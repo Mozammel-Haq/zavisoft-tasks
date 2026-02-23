@@ -208,13 +208,13 @@
                 </div>
             </a>
         </div>
-
+{{--
         <div class="sidebar-welcome">
             <h2>Hello,<br>{{ explode(' ', $user->name)[0] }}!</h2>
             <p>You are logged in and your SSO session is active.</p>
-        </div>
+        </div> --}}
 
-        <nav class="sidebar-nav" style="padding-bottom:0">
+        <nav class="sidebar-nav" style="padding-top:30px">
             <a href="{{ route('dashboard') }}" class="nav-item active">
                 <span class="nav-icon">
                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>

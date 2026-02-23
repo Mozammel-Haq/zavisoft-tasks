@@ -1,0 +1,31 @@
+<?php
+
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SSOController;
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
+
+// Public Routes
+Route::get('/', fn() => redirect()->route('login'));
+
+Route::get('/login', [LoginController::class, 'showForm'])
+    ->name('login');
+
+Route::post('/login', [LoginController::class, 'login'])
+    ->name('login.post');
+
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
+
+// SSO Routes
+Route::get('/auth/redirect', [SSOController::class, 'redirect'])
+    ->name('sso.redirect');
+
+Route::get('/auth/callback', [SSOController::class, 'callback'])
+    ->name('sso.callback');
+
+    Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+});
