@@ -1,59 +1,212 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📦 Inventory Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A simplified Inventory Management System with **double-entry accounting journal entries** and a **date-wise financial report**. Built as part of the ZaviSoft Laravel Developer Assessment.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🔗 Live Demo
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **URL:** `https://your-inventory-url.com`
+- **Email:** `hmojammel29@gmail.com`
+- **Password:** `admin`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ⚙️ Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+| Layer        | Technology                     |
+|--------------|--------------------------------|
+| Framework    | Laravel 12                     |
+| Database     | MySQL                          |
+| Frontend     | Blade + Pure CSS (Inter font)  |
+| Architecture | Service Layer Pattern          |
+| Accounting   | Double-Entry Bookkeeping       |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🚀 Local Setup Instructions
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Navigate to inventory-app
+```bash
+cd zavisoft-tasks/inventory-app
+```
 
-### Premium Partners
+### 2. Install dependencies
+```bash
+composer install
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 3. Copy environment file
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Contributing
+### 4. Configure `.env`
+```env
+APP_NAME="Inventory App"
+APP_URL=http://127.0.0.1:8002
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=zavi_inventory
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Code of Conduct
+### 5. Create database
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Create a MySQL database named `zavi_inventory`.
 
-## Security Vulnerabilities
+### 6. Run migrations and seeders
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+> The seeder creates the demo product from the task brief:
+> **Purchase: 100 TK | Sell: 200 TK | Stock: 50 units**
 
-## License
+### 7. Start the server
+```bash
+php artisan serve --port=8002
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Visit: `http://127.0.0.1:8002`
+
+---
+
+## 🔑 Demo Credentials
+```
+Email:    hmojammel29@gmail.com
+Password: admin
+```
+
+---
+
+## 📊 Accounting Logic
+
+### Task Brief Scenario
+
+| Field          | Value       |
+|----------------|-------------|
+| Purchase Price | 100 TK      |
+| Sell Price     | 200 TK      |
+| Opening Stock  | 50 units    |
+| Qty Sold       | 10 units    |
+| Discount       | 50 TK       |
+| VAT Rate       | 5%          |
+| Customer Paid  | 1,000 TK    |
+
+### Calculation Breakdown
+```
+Gross Amount      = 10 × 200           = 2,000.00 TK
+Discount          =                       (50.00) TK
+Net before VAT    = 2,000 − 50         = 1,950.00 TK
+VAT (5%)          = 1,950 × 5%         =    97.50 TK
+Net Payable       = 1,950 + 97.50      = 2,047.50 TK
+Amount Paid       =                     1,000.00 TK
+Amount Due        = 2,047.50 − 1,000   = 1,047.50 TK
+COGS              = 10 × 100           = 1,000.00 TK
+```
+
+### Journal Entry (Double-Entry)
+
+| Account              | Type      | Debit (TK) | Credit (TK) |
+|----------------------|-----------|-----------|-------------|
+| Cash / Bank          | Asset     | 1,000.00  | —           |
+| Accounts Receivable  | Asset     | 1,047.50  | —           |
+| Sales Discount       | Expense   | 50.00     | —           |
+| Sales Revenue        | Income    | —         | 2,000.00    |
+| VAT Payable          | Liability | —         | 97.50       |
+| Cost of Goods Sold   | Expense   | 1,000.00  | —           |
+| Inventory            | Asset     | —         | 1,000.00    |
+| **TOTAL**            |           | **3,097.50** | **3,097.50** |
+
+✅ **Balanced — Total Debit = Total Credit**
+
+---
+
+## 🏗️ Architecture
+
+### Service Layer Pattern
+
+Business logic is separated from controllers into dedicated service classes:
+```
+SaleController  →  SaleService  →  JournalService
+     (HTTP)         (Business)       (Accounting)
+```
+
+**`SaleService`** — handles:
+- Stock validation with `lockForUpdate()` (prevents race conditions)
+- All financial calculations
+- Wrapped in `DB::transaction()` for atomicity
+
+**`JournalService`** — handles:
+- Automatic double-entry journal generation
+- Every entry guaranteed balanced (DR = CR)
+
+### Database Schema
+```
+products          — product catalog with pricing and stock
+sales             — sale transactions with all financial fields
+sale_items        — line items per sale
+journal_entries   — accounting entry header
+journal_lines     — individual debit/credit lines
+```
+
+---
+
+## 📁 Project Structure
+```
+inventory-app/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── Auth/LoginController.php     # Authentication
+│   │   ├── DashboardController.php      # Stats overview
+│   │   ├── ProductController.php        # Product CRUD
+│   │   ├── SaleController.php           # Sale recording
+│   │   ├── JournalController.php        # Journal viewer
+│   │   └── ReportController.php        # Financial report
+│   ├── Models/
+│   │   ├── Product.php
+│   │   ├── Sale.php
+│   │   ├── SaleItem.php
+│   │   ├── JournalEntry.php
+│   │   └── JournalLine.php
+│   └── Services/
+│       ├── SaleService.php              # Sale processing + stock
+│       └── JournalService.php           # Double-entry accounting
+├── database/
+│   ├── migrations/                      # 5 table migrations
+│   └── seeders/
+│       ├── UserSeeder.php               # Admin user
+│       └── ProductSeeder.php            # Demo product (task brief)
+└── resources/views/
+    ├── dashboard.blade.php
+    ├── products/ (index, create, edit, show)
+    ├── sales/ (index, create, show)
+    ├── journal/ (index, show)
+    └── reports/financial.blade.php
+```
+
+---
+
+## 📈 Features
+
+- **Product Management** — add products with purchase price, sell price, opening stock
+- **Grid / List View Toggle** — switch between table and card view for products
+- **Sale Recording** — live calculation preview as you type
+- **Auto Journal** — double-entry journal generated automatically on every sale
+- **Financial Report** — date-wise breakdown with from/to filter
+- **Stock Tracking** — current stock decrements automatically per sale
+- **Low Stock Alert** — visual indicator when stock ≤ 5 units
+
+---
+
+## 📝 Notes
+
+- All financial calculations use PHP's `round()` to 2 decimal places
+- `DB::transaction()` ensures atomicity — if journal fails, sale rolls back
+- `lockForUpdate()` on product prevents race conditions in concurrent sales

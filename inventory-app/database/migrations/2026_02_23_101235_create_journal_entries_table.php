@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('reference_id');
             $table->date('entry_date');
             $table->string('description');
-            $table->index(['reference_type', 'reference_id']);
+            $table->index(['reference_type', 'reference_id'], 'journal_ref_index');
             $table->timestamps();
         });
     }

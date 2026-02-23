@@ -1,59 +1,147 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🍔 Foodpanda App — OAuth2 SSO Client
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The **Foodpanda App** is an independent Laravel application that accepts Single Sign-On (SSO) login from the Ecommerce App using the OAuth2 Authorization Code Grant. Users logged into Ecommerce can access Foodpanda automatically — no password required.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🔗 Live Demo
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **URL:** `https://your-foodpanda-url.com`
+- **SSO Demo:** Login to Ecommerce → click "Open Foodpanda"
+- **Direct Login Email:** `hmojammel29@gmail.com`
+- **Password:** `admin`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ⚙️ Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+| Layer       | Technology                        |
+|-------------|-----------------------------------|
+| Framework   | Laravel 12                        |
+| SSO Client  | Laravel HTTP Client (no Socialite)|
+| Database    | MySQL                             |
+| Frontend    | Blade + Pure CSS (Inter font)     |
+| SSO Protocol| OAuth 2.0 Authorization Code Grant|
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🚀 Local Setup Instructions
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Prerequisites
 
-### Premium Partners
+> ⚠️ Ecommerce App must be running first. Complete its setup before this.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 1. Navigate to foodpanda-app
+```bash
+cd zavisoft-tasks/foodpanda-app
+```
 
-## Contributing
+### 2. Install dependencies
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Copy environment file
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Code of Conduct
+### 4. Configure `.env`
+```env
+APP_NAME="Foodpanda App"
+APP_URL=http://127.0.0.1:8001
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=zavi_foodpanda
+DB_USERNAME=root
+DB_PASSWORD=
 
-## Security Vulnerabilities
+SSO_SERVER_URL=http://127.0.0.1:8000
+SSO_CLIENT_ID=<client_id_from_ecommerce_setup>
+SSO_CLIENT_SECRET=<client_secret_from_ecommerce_setup>
+SSO_REDIRECT_URI=http://127.0.0.1:8001/auth/callback
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Create database
 
-## License
+Create a MySQL database named `zavi_foodpanda`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 6. Run migrations
+```bash
+php artisan migrate
+```
+
+### 7. Start the server
+```bash
+php artisan serve --port=8001
+```
+
+Visit: `http://127.0.0.1:8001`
+
+---
+
+## 🔐 SSO Flow — Foodpanda Side
+```
+User clicks "Login via Ecommerce SSO"
+        │
+        ▼
+/auth/redirect  →  builds OAuth URL  →  redirects to Ecommerce /oauth/authorize
+        │
+        ▼ (after user approves on Ecommerce)
+/auth/callback  →  receives authorization code
+        │
+        ▼
+POST /oauth/token on Ecommerce  →  exchange code for access token
+        │
+        ▼
+GET /api/user on Ecommerce (with token)  →  fetch user profile
+        │
+        ▼
+firstOrCreate user in zavi_foodpanda  →  Auth::login()  →  Dashboard
+```
+
+### Key File: `SSOController.php`
+```
+redirect()   — Builds the OAuth authorization URL and redirects user
+callback()   — Handles the code exchange, token fetch, user creation, login
+```
+
+### Security Measures
+
+- **State parameter** — random 40-char string prevents CSRF attacks
+- **Server-to-server token exchange** — authorization code never exposed to browser
+- **Random password** — SSO users get a bcrypt random password (SSO only)
+- **firstOrCreate by sso_id** — prevents duplicate accounts
+
+---
+
+## 📁 Project Structure
+```
+foodpanda-app/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── Auth/SSOController.php       # Core SSO redirect + callback
+│   │   ├── Auth/LoginController.php     # Standard login fallback
+│   │   └── DashboardController.php      # Post-login dashboard
+│   └── Models/
+│       └── User.php                     # Has sso_id field
+├── config/
+│   └── sso.php                          # SSO server URL, client credentials
+├── routes/
+│   └── web.php                          # /auth/redirect + /auth/callback
+└── resources/views/
+    ├── auth/login.blade.php             # Login with SSO button
+    └── dashboard.blade.php              # Shows SSO source confirmation
+```
+
+---
+
+## 📝 Notes
+
+- Users created via SSO are stored locally in `zavi_foodpanda`
+- Matched by `sso_id` (ecommerce user ID) to prevent duplicates
+- Name and email sync on every SSO login
+- Standard email/password login also works independently
