@@ -84,7 +84,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: auto;
+        margin-bottom: 120px;
     }
 
     .panel-brand-icon {
@@ -106,6 +106,7 @@
         position: relative;
         z-index: 1;
         margin-bottom: 36px;
+        text-align: center;
     }
 
     .panel-heading {
@@ -266,7 +267,7 @@
             </div>
 
             <div class="panel-content">
-                <div class="panel-heading">Manage<br>Smarter.</div>
+                <div class="panel-heading">Manage Inventory<br>Smarter.</div>
                 <p class="panel-text">
                     Track products, record sales with proper accounting journal entries, and view date-wise financial reports.
                 </p>
@@ -331,8 +332,8 @@
 
 <script>
 function fillDemo() {
-    document.getElementById('email').value    = 'admin@inventory.com';
-    document.getElementById('password').value = 'password';
+    document.getElementById('email').value    = 'hmojammel29@gmail.com';
+    document.getElementById('password').value = 'admin';
 }
 </script>
 @endsection

@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; overflow-x: hidden; }
 
         :root {
             --brand:          #6366f1;
@@ -28,7 +28,7 @@
 
             --surface:        #ffffff;
             --bg:             #f4f6fb;
-            --border:         #e8ecf4;
+            --border:         #dfe5f2;
             --input-bg:       #f4f6f8;
 
             --text-primary:   #1e2433;
@@ -67,6 +67,7 @@
             flex-direction: column;
             flex-shrink: 0;
             overflow-y: auto;
+            overflow-x: hidden
             position: relative;
         }
 
@@ -295,13 +296,6 @@
             border: 1px solid #c7d2fe;
         }
 
-        .live-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--brand);
-            animation: blink 2s infinite;
-        }
 
         @keyframes blink {
             0%,100% { opacity: 1; }
@@ -321,18 +315,21 @@
             justify-content: space-between;
             gap: 16px;
             margin-bottom: 24px;
+            background-color: var(--brand);
+            padding: 25px ;
+            border-radius: 8px;
         }
 
         .page-header-text h1 {
             font-size: 20px;
             font-weight: 750;
-            color: var(--text-primary);
+            color: white;
             margin-bottom: 3px;
         }
 
         .page-header-text p {
             font-size: 13px;
-            color: var(--text-secondary);
+            color: white;
         }
 
         /* ── Cards ──────────────────────────────────── */
@@ -396,6 +393,7 @@
             color: var(--text-primary);
             line-height: 1;
             margin-bottom: 5px;
+            overflow: hidden
         }
 
         .stat-label {
@@ -417,7 +415,7 @@
         }
 
         thead th {
-            padding: 11px 16px;
+            padding: 14px 18px;
             text-align: left;
             font-size: 11px;
             font-weight: 700;
@@ -497,11 +495,11 @@
 
         .btn-outline {
             background: transparent;
-            color: var(--brand);
-            border: 1.5px solid var(--brand);
+            color: white;
+            border: 1.5px solid white;
         }
 
-        .btn-outline:hover { background: var(--brand-light); }
+        .btn-outline:hover { background: var(--brand-dark); }
 
         .btn-ghost {
             background: var(--bg);

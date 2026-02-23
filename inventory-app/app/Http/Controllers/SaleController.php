@@ -16,7 +16,7 @@ class SaleController extends Controller
         return view('sales.index', compact('sales'));
     }
     public function create(){
-        $product =Product::where('current_stock','>',0)->orderBy('name')->get();
+        $products =Product::where('current_stock','>',0)->orderBy('name')->get();
         return view('sales.create', compact('products'));
     }
     public function store(Request $request){
@@ -42,7 +42,7 @@ class SaleController extends Controller
         }
     }
     public function show(Sale $sale){
-        $sale->load('item.product','JournalEntry.lines');
+        $sale->load('items.product','JournalEntry.lines');
         return view('sales.show', compact('sale'));
     }
 }

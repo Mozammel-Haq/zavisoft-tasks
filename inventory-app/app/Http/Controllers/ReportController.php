@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 
-use function Symfony\Component\Clock\now;
 
 class ReportController extends Controller
 {

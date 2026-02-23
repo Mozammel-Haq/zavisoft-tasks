@@ -14,7 +14,7 @@ class DashboardController extends Controller
             'total_sales' => Sale::count(),
             'total_revenue' => Sale::sum('net_amount'),
             'total_due' => Sale::sum('due_amount'),
-            'low_stock' => Product::where('current_stock','<',10),
+            'low_stock' => Product::where('current_stock','<',10)->count(),
             'today_sales' => Sale::whereDate('sale_date',today())->sum('net_amount')
         ];
 
