@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 cd /var/www/html
 
@@ -11,14 +10,8 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-echo "==> Setting nginx port..."
-sed -i "s/listen 8000;/listen ${PORT:-8000};/" /etc/nginx/nginx.conf
-
-echo "==> Starting services..."
-supervisord -c /etc/supervisord.conf &
-
-echo "==> Waiting for nginx to start..."
-sleep 3
+echo "==> Setting nginx port to ${PORT}..."
+sed -i "s/listen 8000;/listen ${PORT:-8000};/g" /etc/nginx/nginx.conf
 
 echo "==> Running migrations..."
 php artisan migrate --force
@@ -29,11 +22,11 @@ php artisan db:seed --force
 echo "==> Installing Passport..."
 php artisan passport:install --force
 
-echo "==> Fixing Passport key permissions..."
+echo "==> Fixing permissions..."
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 chmod 600 storage/oauth-private.key
 chmod 600 storage/oauth-public.key
 
-echo "==> All done."
-wait
+echo "==> Starting services..."
+exec supervisord -c /etc/supervisord.conf
