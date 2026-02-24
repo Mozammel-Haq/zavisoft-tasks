@@ -10,9 +10,6 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-echo "==> Setting nginx port to ${PORT}..."
-sed -i "s/listen 8000;/listen ${PORT:-8000};/g" /etc/nginx/nginx.conf
-
 echo "==> Running migrations..."
 php artisan migrate --force
 
@@ -30,3 +27,10 @@ chmod 600 storage/oauth-public.key
 
 echo "==> Starting services..."
 exec supervisord -c /etc/supervisord.conf
+```
+
+### Update Railway Variables
+
+Go to Railway → ecommerce service → **Variables** → set:
+```
+PORT = 8080
