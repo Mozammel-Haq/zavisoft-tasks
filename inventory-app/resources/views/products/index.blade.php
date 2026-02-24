@@ -51,86 +51,84 @@
 
     {{-- ── LIST VIEW ──────────────────────────────────────── --}}
     <div id="listView">
-        <div class="card">
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Product Name</th>
-                            <th>SKU</th>
-                            <th>Purchase Price</th>
-                            <th>Sell Price</th>
-                            <th>Current Stock</th>
-                            <th>Margin</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($products as $product)
-                        @php
-                            $margin = $product->sell_price > 0
-                                ? round((($product->sell_price - $product->purchase_price) / $product->sell_price) * 100, 1)
-                                : 0;
-                        @endphp
-                        <tr>
-                            <td style="color:var(--text-muted);font-size:12px">{{ $loop->iteration }}</td>
-                            <td>
-                                <div style="font-weight:600;color:var(--text-primary)">{{ $product->name }}</div>
-                                @if($product->description)
-                                    <div style="font-size:12px;color:var(--text-muted);margin-top:2px">
-                                        {{ Str::limit($product->description, 40) }}
-                                    </div>
-                                @endif
-                            </td>
-                            <td style="font-family:monospace;font-size:12px;color:var(--text-secondary)">
-                                {{ $product->sku ?? '—' }}
-                            </td>
-                            <td>{{ number_format($product->purchase_price, 2) }} TK</td>
-                            <td style="font-weight:600;color:var(--brand)">
-                                {{ number_format($product->sell_price, 2) }} TK
-                            </td>
-                            <td>
-                                <div style="display:flex;align-items:center;gap:8px">
-                                    <span style="font-weight:700;font-size:13px;color:{{ $product->current_stock <= 5 ? 'var(--coral)' : 'var(--text-primary)' }}">
-                                        {{ $product->current_stock }}
-                                    </span>
-                                    @if($product->current_stock <= 5)
-                                        <span class="badge badge-danger" style="font-size:10px">Low</span>
-                                    @endif
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>SKU</th>
+                        <th>Purchase Price</th>
+                        <th>Sell Price</th>
+                        <th>Current Stock</th>
+                        <th>Margin</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($products as $product)
+                    @php
+                        $margin = $product->sell_price > 0
+                            ? round((($product->sell_price - $product->purchase_price) / $product->sell_price) * 100, 1)
+                            : 0;
+                    @endphp
+                    <tr>
+                        <td style="color:var(--text-muted);font-size:12px">{{ $loop->iteration }}</td>
+                        <td>
+                            <div style="font-weight:600;color:var(--text-primary)">{{ $product->name }}</div>
+                            @if($product->description)
+                                <div style="font-size:12px;color:var(--text-muted);margin-top:2px">
+                                    {{ Str::limit($product->description, 40) }}
                                 </div>
-                            </td>
-                            <td>
-                                <span style="font-weight:600;color:{{ $margin >= 30 ? 'var(--green)' : ($margin >= 10 ? 'var(--brand)' : 'var(--coral)') }}">
-                                    {{ $margin }}%
+                            @endif
+                        </td>
+                        <td style="font-family:monospace;font-size:12px;color:var(--text-secondary)">
+                            {{ $product->sku ?? '—' }}
+                        </td>
+                        <td>{{ number_format($product->purchase_price, 2) }} TK</td>
+                        <td style="font-weight:600;color:var(--brand)">
+                            {{ number_format($product->sell_price, 2) }} TK
+                        </td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <span style="font-weight:700;font-size:13px;color:{{ $product->current_stock <= 5 ? 'var(--coral)' : 'var(--text-primary)' }}">
+                                    {{ $product->current_stock }}
                                 </span>
-                            </td>
-                            <td>
-                                <div style="display:flex;gap:6px">
-                                    <a href="{{ route('products.show', $product) }}" class="btn btn-ghost btn-sm">View</a>
-                                    <a href="{{ route('products.edit', $product) }}" class="btn btn-ghost btn-sm">Edit</a>
-                                </div>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="8" style="text-align:center;padding:56px;color:var(--text-muted)">
-                                No products yet.
-                                <a href="{{ route('products.create') }}" style="color:var(--brand);font-weight:600">Add first product</a>
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-
-            @if($products->hasPages())
-            <div class="pagination-wrap">
-                <span>Showing {{ $products->firstItem() }}–{{ $products->lastItem() }} of {{ $products->total() }}</span>
-                {{ $products->links('partials.pagination') }}
-            </div>
-            @endif
+                                @if($product->current_stock <= 5)
+                                    <span class="badge badge-danger" style="font-size:10px">Low</span>
+                                @endif
+                            </div>
+                        </td>
+                        <td>
+                            <span style="font-weight:600;color:{{ $margin >= 30 ? 'var(--green)' : ($margin >= 10 ? 'var(--brand)' : 'var(--coral)') }}">
+                                {{ $margin }}%
+                            </span>
+                        </td>
+                        <td>
+                            <div style="display:flex;gap:6px">
+                                <a href="{{ route('products.show', $product) }}" class="btn btn-ghost btn-sm">View</a>
+                                <a href="{{ route('products.edit', $product) }}" class="btn btn-ghost btn-sm">Edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="8" style="text-align:center;padding:56px;color:var(--text-muted)">
+                            No products yet.
+                            <a href="{{ route('products.create') }}" style="color:var(--brand);font-weight:600">Add first product</a>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
+
+        @if($products->hasPages())
+        <div class="pagination-wrap">
+            <span>Showing {{ $products->firstItem() }}–{{ $products->lastItem() }} of {{ $products->total() }}</span>
+            {{ $products->links('partials.pagination') }}
+        </div>
+        @endif
     </div>
 
     {{-- ── GRID VIEW ──────────────────────────────────────── --}}

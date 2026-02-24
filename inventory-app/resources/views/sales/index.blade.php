@@ -25,50 +25,48 @@
         </div>
     @endif
 
-    <div class="card">
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Invoice</th>
-                        <th>Customer</th>
-                        <th>Date</th>
-                        <th>Net Amount</th>
-                        <th>Paid</th>
-                        <th>Due</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($sales as $sale)
-                    <tr>
-                        <td style="font-weight:600;color:var(--brand)">{{ $sale->invoice_number }}</td>
-                        <td>{{ $sale->customer_name }}</td>
-                        <td>{{ $sale->sale_date->format('d M Y') }}</td>
-                        <td style="font-weight:700">{{ number_format($sale->net_amount, 2) }}</td>
-                        <td style="color:var(--green)">{{ number_format($sale->paid_amount, 2) }}</td>
-                        <td style="color:var(--coral)">{{ number_format($sale->due_amount, 2) }}</td>
-                        <td><span class="badge badge-{{ $sale->status }}">{{ ucfirst($sale->status) }}</span></td>
-                        <td>
-                            <a href="{{ route('sales.show', $sale) }}" class="btn btn-ghost btn-sm">View</a>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="8" style="text-align:center;padding:48px;color:var(--text-muted)">
-                            No sales yet. <a href="{{ route('sales.create') }}" style="color:var(--brand)">Record first sale</a>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        @if($sales->hasPages())
-        <div class="pagination-wrap">
-            <span>Showing {{ $sales->firstItem() }}–{{ $sales->lastItem() }} of {{ $sales->total() }}</span>
-            {{ $sales->links('partials.pagination') }}
-        </div>
-        @endif
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Invoice</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Net Amount</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($sales as $sale)
+                <tr>
+                    <td style="font-weight:600;color:var(--brand)">{{ $sale->invoice_number }}</td>
+                    <td>{{ $sale->customer_name }}</td>
+                    <td>{{ $sale->sale_date->format('d M Y') }}</td>
+                    <td style="font-weight:700">{{ number_format($sale->net_amount, 2) }}</td>
+                    <td style="color:var(--green)">{{ number_format($sale->paid_amount, 2) }}</td>
+                    <td style="color:var(--coral)">{{ number_format($sale->due_amount, 2) }}</td>
+                    <td><span class="badge badge-{{ $sale->status }}">{{ ucfirst($sale->status) }}</span></td>
+                    <td>
+                        <a href="{{ route('sales.show', $sale) }}" class="btn btn-ghost btn-sm">View</a>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="8" style="text-align:center;padding:48px;color:var(--text-muted)">
+                        No sales recorded yet. <a href="{{ route('sales.create') }}" style="color:var(--brand)">Record first sale</a>
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+    @if($sales->hasPages())
+    <div class="pagination-wrap">
+        <span>Showing {{ $sales->firstItem() }}–{{ $sales->lastItem() }} of {{ $sales->total() }}</span>
+        {{ $sales->links('partials.pagination') }}
+    </div>
+    @endif
 @endsection

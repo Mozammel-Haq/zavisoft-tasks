@@ -83,54 +83,53 @@
     </div>
 
     {{-- Recent Sales --}}
-    <div class="card">
-        <div class="card-header" style="flex-wrap: wrap;">
-            <span class="card-header-title">Recent Sales</span>
-            <a href="{{ route('sales.index') }}" class="btn btn-ghost btn-sm">View All</a>
-        </div>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Invoice</th>
-                        <th>Customer</th>
-                        <th>Date</th>
-                        <th>Net Amount</th>
-                        <th>Paid</th>
-                        <th>Due</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($recent_sales as $sale)
-                    <tr>
-                        <td>
-                            <a href="{{ route('sales.show', $sale) }}"
-                               style="color:var(--brand);font-weight:600;text-decoration:none">
-                                {{ $sale->invoice_number }}
-                            </a>
-                        </td>
-                        <td>{{ $sale->customer_name }}</td>
-                        <td>{{ $sale->sale_date->format('d M Y') }}</td>
-                        <td style="font-weight:600">{{ number_format($sale->net_amount, 2) }} TK</td>
-                        <td style="color:var(--green)">{{ number_format($sale->paid_amount, 2) }} TK</td>
-                        <td style="color:var(--coral)">{{ number_format($sale->due_amount, 2) }} TK</td>
-                        <td>
-                            <span class="badge badge-{{ $sale->status }}">
-                                {{ ucfirst($sale->status) }}
-                            </span>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted)">
-                            No sales recorded yet.
-                            <a href="{{ route('sales.create') }}" style="color:var(--brand)">Record first sale</a>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+    {{-- Recent Sales --}}
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; margin-top:30px">
+        <h2 style="font-size:16px; font-weight:700; color:var(--text-primary)">Recent Sales</h2>
+        <a href="{{ route('sales.index') }}" class="btn btn-ghost btn-sm">View All</a>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Invoice</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Net Amount</th>
+                    <th>Paid</th>
+                    <th>Due</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($recent_sales as $sale)
+                <tr>
+                    <td>
+                        <a href="{{ route('sales.show', $sale) }}"
+                           style="color:var(--brand);font-weight:600;text-decoration:none">
+                            {{ $sale->invoice_number }}
+                        </a>
+                    </td>
+                    <td>{{ $sale->customer_name }}</td>
+                    <td>{{ $sale->sale_date->format('d M Y') }}</td>
+                    <td style="font-weight:600">{{ number_format($sale->net_amount, 2) }} TK</td>
+                    <td style="color:var(--green)">{{ number_format($sale->paid_amount, 2) }} TK</td>
+                    <td style="color:var(--coral)">{{ number_format($sale->due_amount, 2) }} TK</td>
+                    <td>
+                        <span class="badge badge-{{ $sale->status }}">
+                            {{ ucfirst($sale->status) }}
+                        </span>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted)">
+                        No sales recorded yet.
+                        <a href="{{ route('sales.create') }}" style="color:var(--brand)">Record first sale</a>
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 @endsection

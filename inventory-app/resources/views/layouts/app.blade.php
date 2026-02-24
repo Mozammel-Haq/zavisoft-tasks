@@ -15,35 +15,34 @@
         *::-webkit-scrollbar { width: 6px; height: 6px; }
         *::-webkit-scrollbar-track { background: transparent; }
         *::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
- Broadway, system-ui, sans-serif; }
-
+ 
         :root {
             --brand:          #6366f1;
             --brand-dark:     #4f46e5;
             --brand-light:    #eef2ff;
             --brand-text:     #4338ca;
-
+ 
             --teal:           #2ec4b6;
             --coral:          #e85d6a;
             --yellow:         #f5c842;
             --green:          #10b981;
             --green-bg:       #ecfdf5;
             --green-border:   #a7f3d0;
-
+ 
             --surface:        #ffffff;
             --bg:             #f4f6fb;
             --border:         #dfe5f2;
             --input-bg:       #f4f6f8;
-
+ 
             --text-primary:   #1e2433;
             --text-secondary: #64748b;
             --text-muted:     #a0aec0;
-
+ 
             --sidebar-w:      260px;
             --radius:         14px;
             --radius-sm:      8px;
             --radius-pill:    50px;
-
+ 
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 

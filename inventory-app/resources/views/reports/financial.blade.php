@@ -84,40 +84,38 @@
     </div>
 
     {{-- Date-wise Table --}}
-    <div class="card">
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th style="text-align:right">Total Sell</th>
-                        <th style="text-align:right">Total COGS</th>
-                        <th style="text-align:right">Gross Profit</th>
-                        <th style="text-align:right">Due</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($dailyReport as $row)
-                    <tr>
-                        <td style="font-weight:600">
-                            {{ \Carbon\Carbon::parse($row->sale_date)->format('d M Y') }}
-                        </td>
-                        <td style="text-align:right;font-weight:700;color:var(--green)">{{ number_format($row->net_sales, 0) }}</td>
-                        <td style="text-align:right;color:var(--coral)">{{ number_format($row->total_expense, 0) }}</td>
-                        <td style="text-align:right;font-weight:700;color:{{ $row->gross_profit >= 0 ? 'var(--green)' : 'var(--coral)' }}">
-                            {{ number_format($row->gross_profit, 0) }}
-                        </td>
-                        <td style="text-align:right;color:var(--coral)">{{ number_format($row->total_due, 0) }}</td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5" style="text-align:center;padding:48px;color:var(--text-muted)">
-                            No sales data for this period.
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th style="text-align:right">Total Sell</th>
+                    <th style="text-align:right">Total COGS</th>
+                    <th style="text-align:right">Gross Profit</th>
+                    <th style="text-align:right">Due</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($dailyReport as $row)
+                <tr>
+                    <td style="font-weight:600">
+                        {{ \Carbon\Carbon::parse($row->sale_date)->format('d M Y') }}
+                    </td>
+                    <td style="text-align:right;font-weight:700;color:var(--green)">{{ number_format($row->net_sales, 0) }}</td>
+                    <td style="text-align:right;color:var(--coral)">{{ number_format($row->total_expense, 0) }}</td>
+                    <td style="text-align:right;font-weight:700;color:{{ $row->gross_profit >= 0 ? 'var(--green)' : 'var(--coral)' }}">
+                        {{ number_format($row->gross_profit, 0) }}
+                    </td>
+                    <td style="text-align:right;color:var(--coral)">{{ number_format($row->total_due, 0) }}</td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" style="text-align:center;padding:48px;color:var(--text-muted)">
+                        No sales data for this period.
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 @endsection

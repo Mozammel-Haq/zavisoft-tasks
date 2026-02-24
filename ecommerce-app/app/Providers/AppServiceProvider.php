@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
-
+use App\Models\Passport\Client;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -30,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(now()->addDays(15));
         Passport::personalAccessTokensExpireIn(now()->addMonths(1));
         Passport::viewPrefix('passport');
+        Passport::useClientModel(Client::class);
     }
 }
