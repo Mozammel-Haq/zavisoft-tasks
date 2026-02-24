@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
-            Passport::loadKeysFrom(storage_path());
+            // Passport::loadKeysFrom(storage_path());
         }
         Passport::tokensExpireIn(now()->addDays(10));
         Passport::refreshTokensExpireIn(now()->addDays(15));
