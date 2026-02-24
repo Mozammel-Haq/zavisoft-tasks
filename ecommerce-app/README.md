@@ -70,8 +70,8 @@ php artisan db:seed --class=UserSeeder
 php artisan db:seed --class=PassportClientSeeder
 ```
 
-### 7. Optional: Register Foodpanda manually
-If you didn't use the seeder, you can register the client manually:
+### 7.Register Foodpanda manually
+you can register the client manually:
 ```bash
 php artisan passport:client --name="Foodpanda App" --redirect_uri="http://127.0.0.1:8001/auth/callback"
 ```
