@@ -11,15 +11,14 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-echo "==> Configuring nginx port..."
-envsubst '${PORT}' < /etc/nginx/nginx.conf > /tmp/nginx-final.conf
-cp /tmp/nginx-final.conf /etc/nginx/nginx.conf
+echo "==> Setting nginx port..."
+sed -i "s/listen 8000;/listen ${PORT:-8000};/" /etc/nginx/nginx.conf
 
-echo "==> Starting services first..."
+echo "==> Starting services..."
 supervisord -c /etc/supervisord.conf &
 
-echo "==> Waiting for services to start..."
-sleep 5
+echo "==> Waiting for nginx to start..."
+sleep 3
 
 echo "==> Running migrations..."
 php artisan migrate --force
@@ -36,5 +35,5 @@ chmod -R 775 storage bootstrap/cache
 chmod 600 storage/oauth-private.key
 chmod 600 storage/oauth-public.key
 
-echo "==> All done. Keeping container alive..."
+echo "==> All done."
 wait

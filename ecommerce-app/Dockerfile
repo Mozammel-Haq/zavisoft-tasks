@@ -9,6 +9,7 @@ RUN apk add --no-cache \
     zip \
     unzip \
     git \
+    gettext \
     oniguruma-dev \
     libpng-dev \
     libjpeg-turbo-dev \
