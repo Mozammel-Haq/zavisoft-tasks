@@ -6,8 +6,8 @@ The **Ecommerce App** acts as the central authentication server in a Single Sign
 
 ## 🔗 Live Demo
 
-- **URL:** `https://your-ecommerce-url.com`
-- **Email:** `hmojammel29@gmail.com`
+- **URL:** [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- **Demo Email:** `hmojammel29@gmail.com`
 - **Password:** `admin`
 
 ---
@@ -66,10 +66,12 @@ Create a MySQL database named `ecommerce_db`.
 ```bash
 php artisan migrate
 php artisan passport:install
-php artisan db:seed
+php artisan db:seed --class=UserSeeder
+php artisan db:seed --class=PassportClientSeeder
 ```
 
-### 7. Register Foodpanda as OAuth client
+### 7. Optional: Register Foodpanda manually
+If you didn't use the seeder, you can register the client manually:
 ```bash
 php artisan passport:client --name="Foodpanda App" --redirect_uri="http://127.0.0.1:8001/auth/callback"
 ```
@@ -158,3 +160,6 @@ Password: admin
 - Refresh tokens expire in **15 days**
 - Token revocation happens on logout (all tokens deleted)
 - The `/api/user` endpoint is protected by `auth:api` middleware
+
+### 🛠️ Technical Stability Note
+This project includes a fix for a known `TypeError` in Laravel Passport where model attribute casts could cause double-encoding of JSON fields (`grant_types`, `redirect_uris`). The `PassportClientSeeder` and model logic have been aligned to ensure data integrity and full compatibility with Laravel 12.

@@ -7,22 +7,25 @@
 ---
 
 ## 📦 Repository Structure
-```
+
+The repository contains three independent Laravel 12 applications demonstrating SSO and Inventory Management capabilities.
+
+```bash
 zavisoft-tasks/
-├── ecommerce-app/     # Task 1 — OAuth2 SSO Server
-├── foodpanda-app/     # Task 1 — OAuth2 SSO Client
-└── inventory-app/     # Task 2 — Inventory Management System
+├── ecommerce-app/     # Task 1: OAuth2 Authorization Server (SSO Provider)
+├── foodpanda-app/     # Task 1: OAuth2 Client Application (SSO Consumer)
+└── inventory-app/     # Task 2: Inventory System with Double-Entry Accounting
 ```
 
 ---
 
-## 🔗 Live Demos
+## 🔗 Local Access Points
 
-| App | URL | Email | Password |
+| App | Local URL | Demo Email | Password |
 |-----|-----|-------|----------|
-| Ecommerce | https://your-ecommerce-url.com | hmojammel29@gmail.com | admin |
-| Foodpanda | https://your-foodpanda-url.com | SSO from Ecommerce | — |
-| Inventory | https://your-inventory-url.com | admin@inventory.com | password |
+| **Ecommerce** (SSO Server) | [http://127.0.0.1:8000](http://127.0.0.1:8000) | `hmojammel29@gmail.com` | `admin` |
+| **Foodpanda** (SSO Client) | [http://127.0.0.1:8001](http://127.0.0.1:8001) | *Login via Ecommerce SSO* | — |
+| **Inventory** (Standalone)  | [http://127.0.0.1:8002](http://127.0.0.1:8002) | `hmojammel29@gmail.com` | `admin` |
 
 ---
 

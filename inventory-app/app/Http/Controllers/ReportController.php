@@ -25,7 +25,7 @@ class ReportController extends Controller
             SUM(paid_amount) AS total_collected,
             SUM(due_amount) AS total_due,
             SUM(cogs) AS total_expense,
-            SUM(net_amount) - SUM(cogs) AS gross_profit
+            SUM(net_amount - vat_amount) - SUM(cogs) AS gross_profit
         ")->whereBetween('sale_date',[$from,$to])->groupBy('sale_date')->orderBy('sale_date','asc')->get();
 
 

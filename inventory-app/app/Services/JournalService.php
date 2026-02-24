@@ -31,7 +31,7 @@ class JournalService{
             //DR - Amount Still Owed by Customer
 
             if($sale->due_amount > 0){
-                $lines[] = $this->line($entry->id, 'Account Receivable','asset', debit:(float) $sale->due_amount);
+                $lines[] = $this->line($entry->id, 'Accounts Receivable','asset', debit:(float) $sale->due_amount);
             }
 
 
@@ -50,7 +50,7 @@ class JournalService{
             // CR - Vat as Liability
 
             if($sale->vat_amount > 0){
-                $lines[] = $this->line($entry->id, 'Sale Discount','liability', credit:(float) $sale->vat_amount);
+                $lines[] = $this->line($entry->id, 'VAT Payable','liability', credit:(float) $sale->vat_amount);
             }
 
         // DR - COGS as expense

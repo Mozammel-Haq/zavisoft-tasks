@@ -29,9 +29,9 @@ class PassportClientSeeder extends Seeder
         $client = Client::create([
             'name'          => 'Foodpanda App',
             'secret'        => \Illuminate\Support\Str::random(40),
-            // store JSON arrays so Passport's attribute casts/closures return arrays
-            'redirect_uris' => json_encode([$redirectUri]),
-            'grant_types'   => json_encode([]),
+            // Pass arrays, Eloquent will handle the JSON encoding via model casts
+            'redirect_uris' => [$redirectUri],
+            'grant_types'   => ['authorization_code', 'refresh_token', 'personal_access'],
             'provider'      => null,
             'revoked'       => false,
         ]);

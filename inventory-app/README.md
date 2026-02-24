@@ -6,8 +6,8 @@ A simplified Inventory Management System with **double-entry accounting journal 
 
 ## 🔗 Live Demo
 
-- **URL:** `https://your-inventory-url.com`
-- **Email:** `hmojammel29@gmail.com`
+- **URL:** [http://127.0.0.1:8002](http://127.0.0.1:8002)
+- **Demo Email:** `hmojammel29@gmail.com`
 - **Password:** `admin`
 
 ---

@@ -6,10 +6,9 @@ The **Foodpanda App** is an independent Laravel application that accepts Single 
 
 ## 🔗 Live Demo
 
-- **URL:** `https://your-foodpanda-url.com`
-- **SSO Demo:** Login to Ecommerce → click "Open Foodpanda"
-- **Direct Login Email:** `hmojammel29@gmail.com`
-- **Password:** `admin`
+- **URL:** [http://127.0.0.1:8001](http://127.0.0.1:8001)
+- **SSO Demo:** Login to Ecommerce first, then click "Open Foodpanda"
+- **Fallback Login:** `hmojammel29@gmail.com` / `admin`
 
 ---
 
