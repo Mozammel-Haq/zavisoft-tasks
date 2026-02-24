@@ -12,6 +12,10 @@
 
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *::-webkit-scrollbar { width: 6px; height: 6px; }
+        *::-webkit-scrollbar-track { background: transparent; }
+        *::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+ Broadway, system-ui, sans-serif; }
 
         :root {
             /* Foodpanda brand — coral/red to differentiate from ecommerce teal */
@@ -243,12 +247,12 @@
             color: #fff;
         }
 
-        /* ── Main ──────────────────────── */
         .main {
             flex: 1;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            position: relative;
         }
 
         .topbar {
@@ -299,6 +303,92 @@
             flex: 1;
             overflow-y: auto;
             padding: 32px;
+            scroll-behavior: smooth;
+        }
+
+        .main-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            min-height: 100%;
+        }
+
+        /* ── Mobile Toggle ────────────────────────── */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 8px;
+            margin-left: -8px;
+        }
+
+        /* ── Overlay ──────────────────────────────── */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(2px);
+            z-index: 40;
+        }
+
+        /* ── Responsive ───────────────────────────── */
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                bottom: 0;
+                z-index: 50;
+                transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .mobile-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sso-source-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 24px;
+            }
+
+            .sso-badge {
+                margin-left: 0;
+                margin-top: 10px;
+            }
         }
 
         /* ── Cards ─────────────────────── */
@@ -431,6 +521,50 @@
     @yield('styles')
 </head>
 <body>
-@yield('body')
+@section('body')
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="app-shell">
+    @yield('sidebar')
+
+    <div class="main">
+        <header class="topbar">
+            <button class="mobile-toggle" id="mobileToggle">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <span class="topbar-title">@yield('page-title', 'Overview')</span>
+            @yield('topbar-actions')
+        </header>
+
+        <div class="content">
+            <div class="main-card">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const mobileToggle = document.getElementById('mobileToggle');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (mobileToggle && sidebar) {
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+</script>
+@show
 </body>
 </html>

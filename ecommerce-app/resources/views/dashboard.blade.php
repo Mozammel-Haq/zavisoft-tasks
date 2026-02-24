@@ -185,12 +185,7 @@
         line-height: 1.6;
     }
 </style>
-@endsection
-
-@section('body')
-<div class="app-shell">
-
-    {{-- Sidebar --}}
+@section('sidebar')
     <aside class="sidebar">
         <div class="sidebar-brand" style="padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.15)">
             <a href="{{ route('dashboard') }}" class="brand-logo">
@@ -208,11 +203,6 @@
                 </div>
             </a>
         </div>
-{{--
-        <div class="sidebar-welcome">
-            <h2>Hello,<br>{{ explode(' ', $user->name)[0] }}!</h2>
-            <p>You are logged in and your SSO session is active.</p>
-        </div> --}}
 
         <nav class="sidebar-nav" style="padding-top:30px">
             <a href="{{ route('dashboard') }}" class="nav-item active">
@@ -246,87 +236,73 @@
             </div>
         </div>
     </aside>
+@endsection
 
-    {{-- Main --}}
-    <div class="main">
-        <header class="topbar">
-            <span class="topbar-title">Overview</span>
-        </header>
+@section('content')
+    @if(session('success'))
+        <div class="alert alert-success">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            {{ session('success') }}
+        </div>
+    @endif
 
-        <div class="content">
-
-            @if(session('success'))
-                <div class="alert alert-success">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    {{ session('success') }}
-                </div>
-            @endif
-
-
-
-            {{-- SSO Card --}}
-            <div class="sso-card">
-
-                <div class="sso-card-text">
-                                               <div class="page-header">
-                <h1>Welcome back, {{ explode(' ', $user->name)[0] }}</h1>
-                <p>Your ecommerce session is active. Launch Foodpanda with one click using SSO.</p>
+    {{-- SSO Card --}}
+    <div class="sso-card">
+        <div class="sso-card-text">
+            <div class="page-header" style="margin-bottom: 0;">
+                <h1 style="color: white">Welcome back, {{ explode(' ', $user->name)[0] }}</h1>
+                <p style="color: rgba(255,255,255,0.8)">Your ecommerce session is active. Launch Foodpanda with one click using SSO.</p>
             </div>
-                </div>
-                <a href="{{ config('app.foodpanda_url', 'http://127.0.0.1:8001') }}/auth/redirect"
-                   class="btn-sso-launch">
-                    <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    Open Foodpanda
-                </a>
+        </div>
+        <a href="{{ config('app.foodpanda_url', 'http://127.0.0.1:8001') }}/auth/redirect"
+           class="btn-sso-launch">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open Foodpanda
+        </a>
+    </div>
+
+    {{-- Stats --}}
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon-box">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </div>
+            <div class="stat-value">{{ explode(' ', $user->name)[0] }}</div>
+            <div class="stat-label">Logged in as</div>
+        </div>
 
-            {{-- Stats --}}
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon-box">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    </div>
-                    <div class="stat-value">{{ explode(' ', $user->name)[0] }}</div>
-                    <div class="stat-label">Logged in as</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon-box">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                    </div>
-                    <div class="stat-value" style="font-size:13px;margin-top:4px">{{ $user->email }}</div>
-                    <div class="stat-label">Account Email</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon-box">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    </div>
-                    <div class="stat-value" style="color:#2ec4b6">Active</div>
-                    <div class="stat-label">SSO Token</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon-box">
-                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </div>
-                    <div class="stat-value">OAuth 2.0</div>
-                    <div class="stat-label">Protocol</div>
-                </div>
+        <div class="stat-card">
+            <div class="stat-icon-box">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
+            <div class="stat-value" style="font-size:13px;margin-top:4px">{{ $user->email }}</div>
+            <div class="stat-label">Account Email</div>
+        </div>
 
-            {{-- Token info --}}
-            @if($ssoToken)
-            <div class="token-box">
-                <div class="token-box-title">
-                    Active SSO Token
-                </div>
-                <div class="token-val">{{ Str::limit($ssoToken, 80) }}...</div>
+        <div class="stat-card">
+            <div class="stat-icon-box">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
-            @endif
+            <div class="stat-value" style="color:#2ec4b6">Active</div>
+            <div class="stat-label">SSO Token</div>
+        </div>
 
+        <div class="stat-card">
+            <div class="stat-icon-box">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="stat-value">OAuth 2.0</div>
+            <div class="stat-label">Protocol</div>
         </div>
     </div>
 
-</div>
+    {{-- Token info --}}
+    @if($ssoToken)
+    <div class="token-box">
+        <div class="token-box-title">
+            Active SSO Token
+        </div>
+        <div class="token-val">{{ Str::limit($ssoToken, 80) }}...</div>
+    </div>
+    @endif
 @endsection
