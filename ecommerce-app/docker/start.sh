@@ -18,14 +18,18 @@ php artisan migrate --force
 echo "==> Seeding database..."
 php artisan db:seed --force
 
-echo "==> Installing Passport..."
+echo "==> Installing Passport keys..."
 php artisan passport:install --force
+
+echo "==> Converting Passport keys to RSA format..."
+openssl rsa -in storage/oauth-private.key -out storage/oauth-private.key 2>/dev/null || true
+openssl rsa -in storage/oauth-private.key -pubout -out storage/oauth-public.key 2>/dev/null || true
 
 echo "==> Setting storage permissions..."
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 
-echo "==> Fixing Passport key permissions AFTER chown..."
+echo "==> Fixing Passport key permissions..."
 chmod 600 storage/oauth-private.key
 chmod 600 storage/oauth-public.key
 
