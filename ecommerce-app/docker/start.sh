@@ -3,6 +3,10 @@ set -e
 
 cd /var/www/html
 
+echo "==> Clearing any old cache..."
+php artisan config:clear
+php artisan cache:clear
+
 echo "==> Caching config, routes, and views..."
 php artisan config:cache
 php artisan route:cache
