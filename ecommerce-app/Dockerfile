@@ -1,6 +1,3 @@
-FROM php:8.2-fpm-alpine
-
-# Install system dependencies
 FROM php:8.2-cli-alpine
 
 # Install system dependencies
@@ -51,12 +48,7 @@ RUN composer install \
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 
+
 EXPOSE 8080
 
 CMD ["/bin/sh", "/var/www/html/docker/start.sh"]
-
-RUN chmod +x /start.sh
-
-EXPOSE 8080
-
-CMD ["/start.sh"]
