@@ -26,15 +26,18 @@ chmod -R 775 storage bootstrap/cache
 chmod 600 storage/oauth-private.key
 chmod 600 storage/oauth-public.key
 
+echo "==> Configuring nginx port..."
+envsubst '${PORT}' < /etc/nginx/nginx.conf > /tmp/nginx-final.conf
+cp /tmp/nginx-final.conf /etc/nginx/nginx.conf
+
 echo "==> Starting services..."
 exec supervisord -c /etc/supervisord.conf
 ```
 
 ---
 
-### Fix 2 — Update Railway Environment Variables
+Also add `PORT` to Railway environment variables:
 
-Go to Railway → ecommerce service → **Variables** → change:
+Go to Railway → ecommerce service → **Variables** → add:
 ```
-CACHE_STORE = file
-SESSION_DRIVER = file
+PORT = 8000
