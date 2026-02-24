@@ -21,9 +21,19 @@ php artisan db:seed --force
 echo "==> Installing Passport..."
 php artisan passport:install --force
 
+echo "==> Registering Foodpanda OAuth client..."
+php artisan passport:client \
+  --name="Foodpanda App" \
+  --redirect_uri="https://foodpanda-appv.onrender.com/auth/callback" \
+  --no-interaction
+
 echo "==> Setting storage permissions..."
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
+
+echo "==> Fixing Passport key permissions..."
+chmod 600 storage/oauth-private.key
+chmod 600 storage/oauth-public.key
 
 echo "==> Starting services..."
 exec supervisord -c /etc/supervisord.conf

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -20,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
         Passport::tokensExpireIn(now()->addDays(10));
         Passport::refreshTokensExpireIn(now()->addDays(15));
         Passport::personalAccessTokensExpireIn(now()->addMonths(1));
