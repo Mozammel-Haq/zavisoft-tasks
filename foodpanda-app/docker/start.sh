@@ -10,9 +10,11 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-echo "==> Setting storage permissions..."
-chown -R www-data:www-data storage bootstrap/cache
+# echo "==> Running migrations..."
+# php artisan migrate --force
+
+echo "==> Fixing permissions..."
 chmod -R 775 storage bootstrap/cache
 
-echo "==> Starting services (php-fpm + nginx) via supervisord..."
-exec supervisord -n -c /etc/supervisord.conf
+echo "==> Starting Laravel server on port 8080..."
+php artisan serve --host=0.0.0.0 --port=8080
