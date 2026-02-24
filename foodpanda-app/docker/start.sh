@@ -15,4 +15,4 @@ chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 
 echo "==> Starting services (php-fpm + nginx) via supervisord..."
-exec supervisord -c /etc/supervisord.conf
+exec supervisord -n -c /etc/supervisord.conf
