@@ -26,13 +26,13 @@
             --yellow:        #f5c842;
 
             --surface:       #ffffff;
-            --bg:            #f0f2f5;
-            --border:        #e8ecf0;
+            --bg:            #f4f6fb;
+            --border:        #dfe5f2;
             --input-bg:      #f4f6f8;
 
-            --text-primary:  #2d3748;
-            --text-secondary:#718096;
-            --text-muted:    #a0aec0;
+            --text-primary:   #1e2433;
+            --text-secondary: #64748b;
+            --text-muted:     #a0aec0;
 
             --sidebar-w:     260px;
             --radius:        14px;

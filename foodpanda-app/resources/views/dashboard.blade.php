@@ -56,24 +56,24 @@
     @endif
 
     {{-- SSO source card --}}
-    <div class="sso-source-card">
-        <div class="sso-icon-wrap">
+    <div class="sso-source-card" style="background: var(--brand-light); border-color: var(--brand-light); border-radius: var(--radius);">
+        <div class="sso-icon-wrap" style="background: rgba(255,255,255,0.6); border: none;">
             <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <rect x="3" y="3" width="7" height="7" rx="1" fill="#2ec4b6"/>
-                <rect x="14" y="3" width="7" height="7" rx="1" fill="#2ec4b6" opacity=".7"/>
-                <rect x="3" y="14" width="7" height="7" rx="1" fill="#2ec4b6" opacity=".7"/>
-                <rect x="14" y="14" width="7" height="7" rx="1" fill="#2ec4b6" opacity=".5"/>
+                <rect x="3" y="3" width="7" height="7" rx="1" fill="var(--brand)"/>
+                <rect x="14" y="3" width="7" height="7" rx="1" fill="var(--brand)" opacity=".7"/>
+                <rect x="3" y="14" width="7" height="7" rx="1" fill="var(--brand)" opacity=".7"/>
+                <rect x="14" y="14" width="7" height="7" rx="1" fill="var(--brand)" opacity=".5"/>
             </svg>
         </div>
         <div class="sso-source-text">
-            <h4>Signed in via Ecommerce SSO</h4>
-            <p>Your identity was verified by the Ecommerce platform using OAuth 2.0 Authorization Code flow.</p>
+            <h4 style="color: var(--brand-text)">Signed in via Ecommerce SSO</h4>
+            <p style="color: var(--text-secondary)">Your identity was verified by the Ecommerce platform using OAuth 2.0 Authorization Code flow.</p>
         </div>
-        <span class="sso-badge">
+        <span class="sso-badge" style="background: white; border-color: var(--border);">
             <span class="live-dot"></span> SSO Active
         </span>
     </div>
-
+ 
     {{-- Stats --}}
     <div class="stats-grid">
         <div class="stat-card">
@@ -83,31 +83,31 @@
             <div class="stat-value">{{ $user->name }}</div>
             <div class="stat-label">Account Name</div>
         </div>
-
+ 
         <div class="stat-card">
             <div class="stat-icon-box">
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
-            <div class="stat-value" style="font-size:13px;margin-top:4px">{{ $user->email }}</div>
+            <div class="stat-value" style="font-size:13px;margin-top:4px;word-break:break-all">{{ $user->email }}</div>
             <div class="stat-label">Email</div>
         </div>
-
+ 
         <div class="stat-card">
             <div class="stat-icon-box">
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
-            <div class="stat-value" style="color:#e85d6a">
+            <div class="stat-value" style="color:var(--brand)">
                 {{ $user->sso_id ? 'SSO User' : 'Local User' }}
             </div>
             <div class="stat-label">Account Type</div>
         </div>
-
+ 
         <div class="stat-card">
             <div class="stat-icon-box">
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <div class="stat-value">{{ $user->created_at->diffForHumans() }}</div>
-            <div class="stat-label">Account Created</div>
+            <div class="stat-label">Joined</div>
         </div>
     </div>
 @endsection

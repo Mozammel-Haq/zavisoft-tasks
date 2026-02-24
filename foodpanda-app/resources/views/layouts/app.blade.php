@@ -15,8 +15,7 @@
         *::-webkit-scrollbar { width: 6px; height: 6px; }
         *::-webkit-scrollbar-track { background: transparent; }
         *::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
- Broadway, system-ui, sans-serif; }
-
+ 
         :root {
             /* Foodpanda brand — coral/red to differentiate from ecommerce teal */
             --brand:        #e85d6a;
@@ -28,12 +27,12 @@
             --yellow:       #f5c842;
 
             --surface:      #ffffff;
-            --bg:           #f0f2f5;
-            --border:       #e8ecf0;
+            --bg:           #f4f6fb;
+            --border:       #dfe5f2;
             --input-bg:     #f4f6f8;
 
-            --text-primary:   #2d3748;
-            --text-secondary: #718096;
+            --text-primary:   #1e2433;
+            --text-secondary: #64748b;
             --text-muted:     #a0aec0;
 
             --sidebar-w:    260px;
@@ -553,7 +552,6 @@
         mobileToggle.addEventListener('click', () => {
             sidebar.classList.add('active');
             sidebarOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
         });
     }
 
@@ -561,7 +559,6 @@
         sidebarOverlay.addEventListener('click', () => {
             sidebar.classList.remove('active');
             sidebarOverlay.classList.remove('active');
-            document.body.style.overflow = '';
         });
     }
 </script>
