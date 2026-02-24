@@ -24,14 +24,14 @@ Route::get('/update-client', function () {
     $redirectUri  = $foodpandaUrl . '/auth/callback';
 
     \Laravel\Passport\Client::where('name', 'Foodpanda App')
-        ->update(['redirect' => $redirectUri]);
+        ->update(['redirect_uris' => $redirectUri]);
 
     $client = \Laravel\Passport\Client::where('name', 'Foodpanda App')->first();
 
     return response()->json([
-        'message'  => 'Client updated',
-        'id'       => $client->id,
-        'secret'   => $client->secret,
-        'redirect' => $client->redirect,
+        'message'     => 'Client updated',
+        'id'          => $client->id,
+        'secret'      => $client->secret,
+        'redirect_uri'=> $redirectUri,
     ]);
 });

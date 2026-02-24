@@ -14,7 +14,7 @@ class PassportClientSeeder extends Seeder
 
         // Check if Foodpanda client already exists
         $exists = Client::where('name', 'Foodpanda App')
-            ->where('redirect', $redirectUri)
+            ->where('redirect_uris', $redirectUri)
             ->exists();
 
         if ($exists) {
@@ -27,12 +27,13 @@ class PassportClientSeeder extends Seeder
 
         // Create new client
         $client = Client::create([
-            'name'                   => 'Foodpanda App',
-            'secret'                 => \Illuminate\Support\Str::random(40),
-            'redirect'               => $redirectUri,
-            'personal_access_client' => false,
-            'password_client'        => false,
-            'revoked'                => false,
+            'name'          => 'Foodpanda App',
+            'secret'        => \Illuminate\Support\Str::random(40),
+            // store JSON arrays so Passport's attribute casts/closures return arrays
+            'redirect_uris' => json_encode([$redirectUri]),
+            'grant_types'   => json_encode([]),
+            'provider'      => null,
+            'revoked'       => false,
         ]);
 
         $this->command->info('Foodpanda OAuth client created successfully.');
