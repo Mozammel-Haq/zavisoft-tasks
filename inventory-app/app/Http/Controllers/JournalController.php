@@ -13,6 +13,7 @@ class JournalController extends Controller
 
     public function show(JournalEntry $journalEntry){
         $journalEntry->load('lines');
-        return view('journal.show', compact('journalEntry'));
+        $entry = $journalEntry;
+        return view('journal.show', compact('entry'));
     }
 }
