@@ -10,11 +10,11 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-echo "==> Running migrations..."
-php artisan migrate --force
+# echo "==> Running migrations..."
+# php artisan migrate --force
 
-echo "==> Seeding database..."
-php artisan db:seed --force
+# echo "==> Seeding database..."
+# php artisan db:seed --force
 
 echo "==> Setting storage permissions..."
 chmod -R 775 storage bootstrap/cache

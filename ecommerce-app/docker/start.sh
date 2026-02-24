@@ -10,14 +10,14 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-echo "==> Running migrations..."
-php artisan migrate --force
+# echo "==> Running migrations..."
+# php artisan migrate --force
 
-echo "==> Seeding database..."
-php artisan db:seed --force
+# echo "==> Seeding database..."
+# php artisan db:seed --force
 
-echo "==> Installing Passport..."
-php artisan passport:install --force
+# echo "==> Installing Passport..."
+# php artisan passport:install --force
 
 echo "==> Fixing permissions..."
 chmod -R 775 storage bootstrap/cache
