@@ -18,3 +18,20 @@ Route::post('/logout',[LoginController::class,'logout'])->middleware('auth')->na
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 });
+
+Route::get('/update-client', function () {
+    $foodpandaUrl = env('FOODPANDA_URL');
+    $redirectUri  = $foodpandaUrl . '/auth/callback';
+
+    \Laravel\Passport\Client::where('name', 'Foodpanda App')
+        ->update(['redirect' => $redirectUri]);
+
+    $client = \Laravel\Passport\Client::where('name', 'Foodpanda App')->first();
+
+    return response()->json([
+        'message'  => 'Client updated',
+        'id'       => $client->id,
+        'secret'   => $client->secret,
+        'redirect' => $client->redirect,
+    ]);
+});
