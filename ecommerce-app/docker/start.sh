@@ -20,17 +20,9 @@ echo "==> Installing Passport..."
 php artisan passport:install --force
 
 echo "==> Fixing permissions..."
-chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 chmod 600 storage/oauth-private.key
 chmod 600 storage/oauth-public.key
 
-echo "==> Starting services..."
-exec supervisord -c /etc/supervisord.conf
-```
-
-### Update Railway Variables
-
-Go to Railway → ecommerce service → **Variables** → set:
-```
-PORT = 8080
+echo "==> Starting Laravel server on port 8080..."
+php artisan serve --host=0.0.0.0 --port=8080
