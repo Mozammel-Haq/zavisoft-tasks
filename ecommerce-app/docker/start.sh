@@ -18,16 +18,16 @@ php artisan view:cache
 # echo "==> Seeding database (DISABLED for performance)..."
 # php artisan db:seed --force
 
-# echo "==> Installing Passport (DISABLED- Keys should be persistent)..."
-# php artisan passport:install --force
+# Optional: Ensure Passport keys exist if they are not in environment
+# We only do this if they are missing to avoid unnecessary overhead
+if [ ! -f storage/oauth-private.key ]; then
+    echo "==> Generating Passport keys..."
+    php artisan passport:keys --force
+fi
 
 echo "==> Fixing permissions..."
 chmod -R 775 storage bootstrap/cache
 
 echo "==> Starting FrankenPHP server on port 8080..."
-# FrankenPHP handles its own execution from the Docker CMD, 
-# but we can trigger any last minute setup here if needed.
-# For FrankenPHP with the default binary, we just exit this script 
-# and let the Docker CMD take over, or we run the binary here.
-
-exec frankenphp run --config /etc/caddy/Caddyfile --adapter caddyfile
+# Using php-server mode is the most robust way to serve Laravel with FrankenPHP
+exec frankenphp php-server --listen :8080 --root public/

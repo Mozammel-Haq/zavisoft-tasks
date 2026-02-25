@@ -18,4 +18,5 @@ echo "==> Fixing permissions..."
 chmod -R 775 storage bootstrap/cache
 
 echo "==> Starting FrankenPHP server on port 8080..."
-exec frankenphp run --config /etc/caddy/Caddyfile --adapter caddyfile
+# Using php-server mode is the most robust way to serve Laravel with FrankenPHP
+exec frankenphp php-server --listen :8080 --root public/
