@@ -1,4 +1,4 @@
-FROM php:8.2-cli-alpine
+FROM dunglas/frankenphp:1-php8.2-alpine
 
 # Install system dependencies
 RUN apk add --no-cache \
@@ -14,23 +14,15 @@ RUN apk add --no-cache \
     libsodium-dev \
     libzip-dev
 
-# Configure and install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
-    pdo \
+# FrankenPHP comes with many extensions, but we ensure our specific ones are there
+RUN install-php-extensions \
     pdo_pgsql \
-    pgsql \
-    mbstring \
-    exif \
     pcntl \
     bcmath \
     gd \
-    opcache \
-    sodium \
-    zip
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+    intl \
+    zip \
+    opcache
 
 # Set working directory
 WORKDIR /var/www/html
@@ -48,6 +40,9 @@ RUN composer install \
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 
+# Environment variables for FrankenPHP
+ENV SERVER_NAME=":8080"
+ENV PHP_INI_SCAN_DIR="/usr/local/etc/php/conf.d"
 
 EXPOSE 8080
 

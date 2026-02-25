@@ -1,4 +1,4 @@
-FROM php:8.2-cli-alpine
+FROM dunglas/frankenphp:1-php8.2-alpine
 
 RUN apk add --no-cache \
     curl \
@@ -13,21 +13,14 @@ RUN apk add --no-cache \
     libsodium-dev \
     libzip-dev
 
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
-    pdo \
+RUN install-php-extensions \
     pdo_pgsql \
-    pgsql \
-    mbstring \
-    exif \
     pcntl \
     bcmath \
     gd \
-    opcache \
-    sodium \
-    zip
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+    intl \
+    zip \
+    opcache
 
 WORKDIR /var/www/html
 
@@ -40,6 +33,10 @@ RUN composer install \
     --prefer-dist
 
 RUN chmod -R 775 storage bootstrap/cache
+
+# Environment variables for FrankenPHP
+ENV SERVER_NAME=":8080"
+ENV PHP_INI_SCAN_DIR="/usr/local/etc/php/conf.d"
 
 EXPOSE 8080
 
