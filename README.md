@@ -19,14 +19,24 @@ zavisoft-tasks/
 
 ---
 
-## 🔗 Local Access Points
+## 🔗 Live Demo
+| App | Live URL | Demo Email | Password |
+|-----|-----|-------|----------|
+| **Ecommerce** (SSO Server) | [https://zavi-ecommerce.up.railway.app](https://zavi-ecommerce.up.railway.app) | `hmojammel29@gmail.com` | `admin` |
+| **Foodpanda** (SSO Client) | [https://zavi-foodpanda.up.railway.app](https://zavi-foodpanda.up.railway.app) | *Login via Ecommerce SSO* | — |
+| **Inventory** (Standalone) | [https://zavi-inventory.up.railway.app](https://zavi-inventory.up.railway.app) | `hmojammel29@gmail.com` | `admin` |
 
+> ⚠️ **Note:** Apps are deployed on Railway free tier using Docker containers.
+> First visit may take up to 60 seconds for containers to initialize.
+> SSO flow between Ecommerce and Foodpanda may take slightly longer due to inter-service OAuth2 communication.
+> All functionality works correctly once containers are warm.
+
+## 🔗 Local Access Points
 | App | Local URL | Demo Email | Password |
 |-----|-----|-------|----------|
 | **Ecommerce** (SSO Server) | [http://127.0.0.1:8000](http://127.0.0.1:8000) | `hmojammel29@gmail.com` | `admin` |
 | **Foodpanda** (SSO Client) | [http://127.0.0.1:8001](http://127.0.0.1:8001) | *Login via Ecommerce SSO* | — |
-| **Inventory** (Standalone)  | [http://127.0.0.1:8002](http://127.0.0.1:8002) | `hmojammel29@gmail.com` | `admin` |
-
+| **Inventory** (Standalone) | [http://127.0.0.1:8002](http://127.0.0.1:8002) | `hmojammel29@gmail.com` | `admin` |
 ---
 
 ## Task 1 — Multi Login SSO System
