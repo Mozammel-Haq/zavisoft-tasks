@@ -51,14 +51,15 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ── Authenticated Shell ──────────────────── */
+
+        /* Shell */
         .app-shell {
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* ── Sidebar ──────────────────────────────── */
+        /* Sidebar */
         .sidebar {
             width: var(--sidebar-w);
             background: var(--brand);

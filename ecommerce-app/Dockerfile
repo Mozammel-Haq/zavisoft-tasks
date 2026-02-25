@@ -17,7 +17,7 @@ RUN apk add --no-cache \
 # Add the PHP extension installer helper
 ADD --chmod=0755 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
-# FrankenPHP comes with many extensions, but we ensure our specific ones are there
+# Extensions
 RUN install-php-extensions \
     pdo_pgsql \
     pcntl \

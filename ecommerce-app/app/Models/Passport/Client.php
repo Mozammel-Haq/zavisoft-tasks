@@ -14,17 +14,14 @@ class Client extends PassportClient
     {
         return Attribute::make(
             get: function (?string $value, array $attributes): array {
-                // If the value is valid JSON, decode it
                 if (!empty($value)) {
                     $json = json_decode($value, true);
                     if (is_array($json)) {
                         return $json;
                     }
-                    // If it wasn't JSON but was a string (e.g. a raw URL), wrap it in an array
                     return [$value];
                 }
 
-                // Compatibility with older Passport 'redirect' column if it exists in attributes
                 if (!empty($attributes['redirect'])) {
                     return explode(',', $attributes['redirect']);
                 }
@@ -46,11 +43,9 @@ class Client extends PassportClient
                     if (is_array($json)) {
                         return $json;
                     }
-                    // Fallback for raw string
                     return explode(',', $value);
                 }
 
-                // Default Passport logic if value is null
                 return array_keys(array_filter([
                     'authorization_code' => ! empty($this->redirect_uris),
                     'client_credentials' => $this->confidential() && $this->firstParty(),

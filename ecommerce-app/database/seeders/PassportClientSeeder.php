@@ -12,9 +12,7 @@ class PassportClientSeeder extends Seeder
         $foodpandaUrl = env('FOODPANDA_URL', 'https://zavi-foodpanda.up.railway.app');
         $redirectUri  = $foodpandaUrl . '/auth/callback';
 
-        // Use updateOrCreate for the main Foodpanda client to maintain the same ID
-        // and avoid "churning" the database, which breaks bookmarks/URLs.
-        // We find by name because names are more stable than IDs in seeders.
+        // Foodpanda client setup
         $client = Client::updateOrCreate(
             ['name' => 'Foodpanda App'],
             [
@@ -25,8 +23,7 @@ class PassportClientSeeder extends Seeder
             ]
         );
 
-        // If the client was just created and didn't have a secret, one was likely generated,
-        // but it's good practice to ensure a secret exists for confidential clients.
+        // Ensure client secret exists
         if (empty($client->secret)) {
             $client->update(['secret' => \Illuminate\Support\Str::random(40)]);
         }

@@ -11,9 +11,6 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# echo "==> Running migrations (DISABLED for performance)..."
-# php artisan migrate --force
-
 echo "==> Fixing permissions..."
 chmod -R 775 storage bootstrap/cache
 

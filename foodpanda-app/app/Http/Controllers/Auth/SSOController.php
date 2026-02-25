@@ -58,9 +58,6 @@ class SSOController extends Controller
 
         $aceessToken = $tokenResponse->json('access_token');
 
-        // Passport exposes the authenticated user at /api/user by default;
-        // make sure you hit the correct endpoint on the SSO server.  if your
-        // provider uses a different URL adjust accordingly.
         $profileUrl = config('sso.server_url').'/api/user';
 
         $userResponse = Http::withToken($aceessToken)->get($profileUrl);
@@ -79,7 +76,6 @@ class SSOController extends Controller
 
         $userData = $userResponse->json();
 
-        // guard against invalid/missing data so we don't try to index null
         if (!is_array($userData) || ! isset($userData['id'])) {
             Log::error('SSO user payload invalid', ['payload' => $userData]);
 
@@ -88,18 +84,15 @@ class SSOController extends Controller
             ]);
         }
 
-        // Find or create user in foodpanda's database
         $user = User::firstOrCreate(
             ['sso_id' => (string) $userData['id']],
             [
                 'name'     => $userData['name'],
                 'email'    => $userData['email'],
-                // Password is random — this user authenticates via SSO only
                 'password' => bcrypt(Str::random(16)),
             ]
         );
 
-        // Update name/email in case they changed in ecommerce-app
         $user->update([
             'name'  => $userData['name'],
             'email' => $userData['email'],

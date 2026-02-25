@@ -58,7 +58,7 @@
             overflow: hidden;
         }
 
-        /* ── Sidebar ──────────────────── */
+        /* Sidebar */
         .sidebar {
             width: var(--sidebar-w);
             background: var(--brand);

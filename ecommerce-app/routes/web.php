@@ -3,7 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-// Health check for Render — must return 200
+
 Route::get('/health', function () {
     return response('OK', 200);
 });
